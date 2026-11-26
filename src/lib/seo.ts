@@ -37,7 +37,7 @@ export function pageMeta({
 }
 
 /** First 8 hex of the share image's sha256 (referensi/tools/make-assets.mjs prints it); bumps the URL when the image changes. */
-export const OG_VERSION = "400858a4";
+export const OG_VERSION = "05197d5f";
 export const OG_ALT = `${BRAND.name} mark and wordmark in black on a white dot-grid report page, with the slogan in mono type.`;
 
 export type Crumb = { name: string; path: string };

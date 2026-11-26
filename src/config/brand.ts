@@ -22,7 +22,7 @@ const SLUG = "orluno";
 const TICKER = "ORLUNO";
 const DOMAIN = "orluno.xyz";
 /** X account of the project (the owner's handle, exactly as written in the order). */
-const X_HANDLE = "orluno";
+const X_HANDLE = "orlunoxyz";
 
 export const BRAND = {
   name: NAME,
@@ -42,7 +42,7 @@ export const BRAND = {
   x: `https://x.com/${X_HANDLE}`,
   xHandle: `@${X_HANDLE}`,
   /** Public source repository: none yet, so every GitHub link stays hidden until this is a repository URL. */
-  github: "https://github.com",
+  github: "https://github.com/orluno/orluno",
   ca: CA,
 } as const;
 

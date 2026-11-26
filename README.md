@@ -10,7 +10,7 @@ This repository is the working code behind https://orluno.xyz.
 
 - **What runs today.** The report builder (`/evaluate`): four strategy templates (trend cross, breakout, dip to average, RSI rebound), nine assets on Robinhood Chain (ETH and eight stock tokens), position size, stop loss and take profit, five risk limits, fee and slippage per fill, a backtest window of 14 to 120 days, and paper sessions kept in your browser. Saved reports and a side-by-side comparison (`/reports`), a limit-check playground and on-chain config lookup (`/limits`), and the full method (`/method`). Paper money only.
 - **Live data.** Prices are Chainlink feed answers read from Robinhood Chain: every round of each feed's current phase was read on chain into `src/data/rounds/`, and newer rounds are read live. Stock-token identity is re-proven live (vetted list + proxy code hash + beacon slot + minted supply).
-- **The contract.** `OrlunoLimitRegistry` records a strategy config hash with the risk limits its owner set (stricter limits apply at once, looser ones wait 24 hours), answers `checkTrade()` against the config's price feed, and anchors hash-chained batches of paper decisions. It is **not deployed yet**; the site works fully without it.
+- **The contract.** `OrlunoLimitRegistry` records a strategy config hash with the risk limits its owner set (stricter limits apply at once, looser ones wait 24 hours), answers `checkTrade()` against the config's price feed, and anchors hash-chained batches of paper decisions. It is live on Robinhood Chain at `0x3b39a27f07d37274bde3852b3296bf311e0b9b79` (verified on Blockscout).
 - **Not built.** Trading with real money through a vault, and any $ORLUNO token feature. Both are concepts. The agent never signs for you; no order is ever placed.
 - **What nothing here claims.** A backtest result is not a future result. Nothing here is advice or a promise of any result, and $ORLUNO has no promised value.
 
@@ -18,7 +18,7 @@ This repository is the working code behind https://orluno.xyz.
 
 | Path | What it is |
 |---|---|
-| `src/app/` | Pages and API routes (Next.js App Router): `/`, `/evaluate`, `/reports`, `/limits`, `/method`, `/token`, local-only `/deploy`, `/api/history`, `/api/latest`, `/api/proof`, `/api/registry`, `/api/chain`, `/api/rpc`. |
+| `src/app/` | Pages and API routes (Next.js App Router): `/`, `/evaluate`, `/reports`, `/limits`, `/method`, `/token`, `/api/history`, `/api/latest`, `/api/proof`, `/api/registry`, `/api/chain`, `/api/rpc`. |
 | `src/lib/engine/` | The report engine: hourly bars from Chainlink rounds, the templates, the shared simulation, the limit check (same rules as the contract) and the decision hashes. |
 | `src/lib/server/` | Chain reads: round top-up, token proofs, registry views and logs, the hardened RPC relay and rate limits. |
 | `src/components/` | Interface components (report, builder, wallet, site). |
@@ -65,7 +65,7 @@ Open http://localhost:6780. Everything works with no configuration: reports, pap
 
 | Contract | Address | Explorer |
 |---|---|---|
-| OrlunoLimitRegistry (+ internal library OrlunoRiskMath) | not deployed yet | — |
+| OrlunoLimitRegistry (+ internal library OrlunoRiskMath) | `0x3b39a27f07d37274bde3852b3296bf311e0b9b79` | [Blockscout](https://robinhoodchain.blockscout.com/address/0x3b39a27f07d37274bde3852b3296bf311e0b9b79) |
 
 The registry records, per owner, a config hash, its asset, its price feed and five limits (max position, max daily loss, max trades a day, max slippage, max price age). Tightening applies in the same block; loosening waits 24 hours and can be cancelled. `checkTrade()` returns reason bits for a described trade, `anchorBatch()` extends a per-config hash chain of paper decisions, and `decisionLeaf` / `foldLeaves` / `linkHead` let anyone recompute an anchored batch. It has no owner, no admin, no fee, no upgrade, and holds no funds.
 
@@ -114,7 +114,7 @@ $ORLUNO is the community token of Orluno on Robinhood Chain. Contract address: a
 | `STORE_KEY_PREFIX` | Key prefix in that store | text, default `orluno:` |
 
 3. After the deploy: `/` returns 200, `/api/chain` returns a block number, `/api/history?asset=ETH` returns bars, `/api/proof` lists nine proven tokens.
-4. Contract: run the site locally, open http://localhost:6780/deploy, connect the deployer wallet and deploy `OrlunoLimitRegistry` (no constructor arguments). Put the address, block and creation tx into `src/config/contracts.ts`, then run `npm run verify-deployment`.
+4. Contract: deploy `OrlunoLimitRegistry` from your own wallet (one creation transaction, no constructor arguments). Put the address, block and creation tx into `src/config/contracts.ts`, then run `npm run verify-deployment`.
 
 ## Contributing
 
