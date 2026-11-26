@@ -41,7 +41,7 @@ export const BRAND = {
   description: `${NAME} runs one no-code trading strategy twice with the same rules: as a backtest over real Chainlink prices on Robinhood Chain and as paper trading from the moment you start it. The evaluation report puts both side by side: return against simply holding, maximum drawdown, simulated fees and slippage, trade count, and every decision with its reason. Your risk limits are checked before every simulated fill and can be recorded on chain. No real money moves; the agent never signs for you.`,
   x: `https://x.com/${X_HANDLE}`,
   xHandle: `@${X_HANDLE}`,
-  /** Public source repository: none yet, so every GitHub link stays hidden until this is a repository URL. */
+  // Public source repository (owned by the project account since 26 Nov 2026).
   github: "https://github.com/orluno/orluno",
   ca: CA,
 } as const;
