@@ -3,7 +3,7 @@
 // and every explorer link derive from it. Anything that is not a 0x + 40 hex address is treated as "not launched yet".
 
 /** Contract address of $ORLUNO on Robinhood Chain. "TBA" until the token exists. */
-const CA: string = "TBA";
+const CA: string = "0xdbfbc4bdacf191dbec3d6c3ae5d4de1027d04b8a";
 
 /**
  * True once the domain points at this deployment. While false, the production *.vercel.app host is served as is (kept
